@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Forage4Food</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <style type="text/css">
+      .jumbotron {
+          background: #0e5135;
+          color: white;
+          padding-bottom: 80px
+      }
+      .jumbotron .btn-primary {
+          background: #0d9263;
+          border-color: #0d9263
+      }
+      .jumbotron .btn-primary:hover {
+          background: #4aba91
+      }
+      .jumbotron p {
+          color: #d9ccee;
+          max-width: 75%;
+          margin: 1em auto 2em
+      }
+      .navbar+.jumbotron {
+          margin-top: -20px
+      }
+      .jumbotron .lang-logo {
+          display: block;
+          background: #b01302;
+          border-radius: 50%;
+          overflow: hidden;
+          width: 100px;
+          height: 100px;
+          margin: auto;
+          border: 2px solid white
+      }
+      .jumbotron .lang-logo img {
+          max-width: 100%
+      }
+    </style>
+  </head>
+  <body>
+  <nav class="navbar navbar-default navbar-static-top navbar-inverse">
+    <div class="container">
+      <ul class="nav navbar-nav">
+        <li class="active">
+          <a href="/"><span class="glyphicon glyphicon-leaf"></span> Forage4Food</a>
+        </li>
+        <!--
+        <li>
+          <a href="https://devcenter.heroku.com/articles/how-heroku-works"><span class="glyphicon glyphicon-user"></span> How Heroku Works</a>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-info-sign"></span> Getting Started Guides <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="https://devcenter.heroku.com/articles/getting-started-with-ruby">Getting Started with Ruby on Heroku</a></li>
+              <li><a href="https://devcenter.heroku.com/articles/getting-started-with-nodejs">Getting Started with Node on Heroku</a></li>
+              <li><a href="https://devcenter.heroku.com/articles/getting-started-with-php">Getting Started with PHP on Heroku</a></li>
+              <li><a href="https://devcenter.heroku.com/articles/getting-started-with-python">Getting Started with Python on Heroku</a></li>
+              <li><a href="https://devcenter.heroku.com/articles/getting-started-with-java">Getting Started with Java on Heroku</a></li>
+              <li><a href="https://devcenter.heroku.com/articles/getting-started-with-clojure">Getting Started with Clojure on Heroku</a></li>
+              <li><a href="https://devcenter.heroku.com/articles/getting-started-with-scala">Getting Started with Scala on Heroku</a></li>
+              <li class="divider"></li>
+              <li><a href="https://devcenter.heroku.com/articles/getting-started-with-heroku-and-connect-without-local-dev">Getting Started on Heroku with Heroku Connect</a></li>
+              <li><a href="https://devcenter.heroku.com/articles/getting-started-with-jruby">Getting Started with Ruby on Heroku (Microsoft Windows)</a></li>
+            </ul>
+        </li>
+        -->
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="navbar-right dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-info-sign"></span> Created by Victor Mao <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="https://www.linkedin.com/in/victor-mao" target="_blank">LinkedIn</a></li>
+              <li><a href="https://github.com/vmao19" target="_blank">GitHub</a></li>
+              <li><a href="https://www.facebook.com/profile.php?id=100004286235811" target="_blank">Facebook</a></li>
+              <li><a href="https://twitter.com/vmao19" target="_blank">Twitter</a></li>
+              <li><a href="https://www.instagram.com/victor_tigerrr12/" target="_blank">Instagram</a></li>
+              <!--
+              <li><a href="https://devcenter.heroku.com/articles/getting-started-with-java">Getting Started with Java on Heroku</a></li>
+              <li><a href="https://devcenter.heroku.com/articles/getting-started-with-clojure">Getting Started with Clojure on Heroku</a></li>
+              <li><a href="https://devcenter.heroku.com/articles/getting-started-with-scala">Getting Started with Scala on Heroku</a></li>
+              <li class="divider"></li>
+              <li><a href="https://devcenter.heroku.com/articles/getting-started-with-heroku-and-connect-without-local-dev">Getting Started on Heroku with Heroku Connect</a></li>
+              <li><a href="https://devcenter.heroku.com/articles/getting-started-with-jruby">Getting Started with Ruby on Heroku (Microsoft Windows)</a></li>
+              -->
+            </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  {% block content %}{% endblock %}
+
+  </body>
+</html>
