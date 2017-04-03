@@ -3,58 +3,131 @@
 
 {% block content %}
 
+<script>
+  function jump(id) {
+    var top = document.getElementById(id).offsetTop; //Getting Y of target element
+    window.scrollTo(0, top);                        //Go there.
+  }​
+</script>
+
+<script>
+  function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(updateValues);
+    }
+    else { 
+        document.search.latitude.value = "Geolocation is not supported by this browser.";
+    }  
+  }
+  function updateValues(position) {
+      document.search.latitude.value = position.coords.latitude;
+      document.search.longitude.value = position.coords.longitude;
+  }
+</script>
+
+{% url 'results' as results_url %}
+{% if request.get_full_path == results_url %} <div onload="jump(results)"></div>{% endif %}
+
 <div class="jumbotron text-center">
   <div class="container">
     <div class="col-lg-8 col-lg-offset-2 input-group input-group-lg " align="center">
-      <form action="results" method="post">
+      <form id="search" name="search" action="results" method="post">
         {% csrf_token %}
-        <input type="text" class="form-control" placeholder="Forage4Food: Enter a category or restaurant..." name="info">
-        <br><br><br>
+        <input type="text" class="form-control" placeholder="Forage4Food: Enter a restaurant or food category..." name="info" autofocus="autofocus" required>
+        <br>
+        <input type="hidden" name="latitude" id="latitude" value="">
+        <input type="hidden" name="longitude" id="longitude" value="">
+        <br>
+        <script>getLocation();</script>
         <input type="submit" class="btn btn-default" value="Forage!">
       </form>
     </div><!-- /input-group -->
   </div>
 </div>
 
-<div class="container">
-  <div class="alert alert-info text-center" role="alert">
-    To deploy your own copy, and learn the fundamentals of the Heroku platform, head over to the <a href="https://devcenter.heroku.com/articles/getting-started-with-python" class="alert-link">Getting Started with Python on Heroku</a> tutorial.
-  </div>
-  <hr>
-  <div class="row">
-    <div class="col-md-6">
-      <h3><span class="glyphicon glyphicon-info-sign"></span> How this sample app works</h3>
-      <ul>
-        <li>This app was deployed to Heroku, either using Git or by using <a href="https://github.com/heroku/python-getting-started">Heroku Button</a> on the repository.</li>
+{% if businesses|length > 0 %}
+<div class="container" id="show">
+  {% if businesses %}
+      <h2> Top {{ businesses|length }} Nearby Results</h2><br>
+      <script>
+          window.location.href = 'results#show';                     //Go there.
+      </script>
+  {% endif %}
+  <!--
+  <style>
+    #map {
+      width: 400px;
+      height: 400px;
+    }
+   </style>
 
-        <li>When Heroku received the source code, it fetched all the dependencies in the <a href="https://github.com/heroku/python-getting-started/blob/master/requirements.txt">requirements.txt file</a>, creating a deployable slug.</li>
-        <li>The platform then spins up a dyno, a lightweight container that provides an isolated environment in which the slug can be mounted and executed.</li>
-        <li>You can scale your app, manage it, and deploy over <a href="https://addons.heroku.com/">150 add-on services</a>, from the Dashboard or CLI.</li>
-      </ul>
-    </div>
-    <div class="col-md-6">
-      <h3><span class="glyphicon glyphicon-link"></span> Next Steps</h3>
-      <ul>
-        <li>If you are following the <a href="https://devcenter.heroku.com/articles/getting-started-with-python">Getting Started</a> guide, then please head back to the tutorial and follow the next steps!</li>
-        <li>If you deployed this app by deploying the Heroku Button, then in a command line shell, run:</li>
-        <ul>
-          <li><code>git clone https://github.com/heroku/python-getting-started.git</code> - this will create a local copy of the source code for the app</li>
-          <li><code>cd python-getting-started</code> - change directory into the local source code repository</li>
-          <li><code>heroku git:remote -a &lt;your-app-name></code> - associate the Heroku app with the repository</li>
-          <li>You'll now be set up to run the app locally, or <a href="https://devcenter.heroku.com/articles/getting-started-with-python#push-local-changes">deploy changes</a> to Heroku</li>
-        </ul>
-      </ul>
-      <h3><span class="glyphicon glyphicon-link"></span> Helpful Links</h3>
-      <ul>
-        <li><a href="https://www.heroku.com/home">Heroku</a></li>
-        <li><a href="https://devcenter.heroku.com/">Heroku Dev Center</a></li>
-        <li><a href="https://devcenter.heroku.com/articles/getting-started-with-python">Getting Started with Python on Heroku</a></li>
-        <li><a href="https://devcenter.heroku.com/articles/django-app-configuration">Configuring Django Apps for Heroku</a></li>
-      </ul>
-    </div>
-  </div> <!-- row -->
-   <div class="alert alert-info text-center" role="alert">
-    Please do work through the Getting Started guide, even if you do know how to build such an application.  The guide covers the basics of working with Heroku, and will familiarize you with all the concepts you need in order to build and deploy your own apps.
+  <div id="map"></div>
+  <script>
+    function getMyLocation() {
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(returnCoordinates);
+      }
+      else { 
+          document.search.latitude.value = "Geolocation is not supported by this browser.";
+    }
+    function returnCoordinates(position) {
+      return position.coords.latitude, position.coords.longitude;
+    }
+
+    function initMap() {
+      var myLatLng = getMyLocation();
+
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 12,
+        center: {{ businesses.0.coordinates.latitude }}, lng: {{ businesses.0.coordinates.longitude }}
+      });
+
+      {% for business in businesses %}
+      var marker = new google.maps.Marker({
+        position: {lat: {{ business.coordinates.latitude }}, lng: {{ business.coordinates.longitude }} },
+        map: map,
+        title: "{{ business.name }}"
+      });
+      {% endfor %}
+    }
+  </script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByy6nJ-gsCOt2XGyxQze1UcW3VxjWsL7U&callback=initMap";
+  </script>
+  -->
+
+  <div class="panel panel-default">
+    {% for business in businesses %}
+      <div class="panel-heading">
+          <h2 class="panel-title"> <a href="{{business.url}}">{{ business.name }}</a></h2>
+      </div>
+      <div class="panel-body">
+        <div class="col-lg-4" align="left">
+          <img class="thumbnail" src="{{ business.image_url}}">
+        </div>
+        <div class="col-lg-4 col-lg-offset-2">
+          <p>Address: {{ business.location.address1 }}<br>{{ business.location.city}}, {{business.location.state}} {{business.location.zip_code}}</p>
+          <p>Phone Number: {{ business.display_phone }}</p>
+          <p>Price: {{ business.price }}/$$$$</p>
+          <p>Closed Right Now? {{ business.is_closed }}</p>
+          <p>Rating: {{ business.rating }}/5.0</p>
+          <p>Categories: {% for category in business.categories %}{{category.title}}<br>{% endfor %}</p>
+          <p><a href="{{business.url}}">{{business.review_count}} Reviews</a></p>
+        </div>
+        <p align="right"><a href="#">Back To Top</a></p>
+      </div>
+    {% endfor %}
   </div>
-</div>
+{% elif businesses %}
+  <div class="container" id="show">
+    <h2> No Nearby Results</h2><br>
+  </div>
+{% endif %}
+
+<footer class="footer">
+  <div class="container" align="center">
+      <h5 class="footer-text">(C) 2017 - Victor Mao</h5>
+      <h5 class="footer-text">Powevered by <a href="https://www.yelp.com/developers/documentation/v3" target="_blank">Yelp Fusion API</a>, <a href="https://www.heroku.com" target="_blank">Heroku</a>, <a href="https://www.djangoproject.com/" target="_blank">Django</a>, and <a href="https://www.python.org/" target="_blank">Python</h5>
+  </div>
+</footer>
 {% endblock %}

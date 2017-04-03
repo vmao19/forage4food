@@ -31,7 +31,7 @@ GRANT_TYPE = 'client_credentials'
 # Defaults for our simple example.
 DEFAULT_TERM = 'dinner'
 DEFAULT_LOCATION = 'San Francisco, CA'
-SEARCH_LIMIT = 3
+SEARCH_LIMIT = 4
 
 def obtain_bearer_token(host, path):
     """Given a bearer token, send a GET request to the API.
@@ -101,6 +101,24 @@ def search(bearer_token, term, location):
     }
     return request(API_HOST, SEARCH_PATH, bearer_token, url_params=url_params)
 
+def search(bearer_token, term, latitude, longitude):
+    """Query the Search API by a search term and location.
+    Args:
+        term (str): The search term passed to the API.
+        location (str): The search location passed to the API.
+    Returns:
+        dict: The JSON response from the request.
+    """
+
+    url_params = {
+        'term': term.replace(' ', '+'),
+        'latitude': latitude,
+        'longitude': longitude,
+        #'location': location.replace(' ', '+'),
+        'limit': SEARCH_LIMIT
+    }
+    return request(API_HOST, SEARCH_PATH, bearer_token, url_params=url_params)
+
 
 def get_business(bearer_token, business_id):
     """Query the Business API by a business ID.
@@ -122,6 +140,7 @@ def query_api(term, location):
     """
     bearer_token = obtain_bearer_token(API_HOST, TOKEN_PATH)
 
+    #response = search(bearer_token, term, location)
     response = search(bearer_token, term, location)
 
     businesses = response.get('businesses')
@@ -138,21 +157,50 @@ def query_api(term, location):
     print(u'Result for business "{0}" found:'.format(business_id))
     pprint.pprint(response, indent=2)
 
+    return businesses
+
+def query_api(term, latitude, longitude):
+    """Queries the API by the input values from the user.
+    Args:
+        term (str): The search term to query.
+        location (str): The location of the business to query.
+    """
+    bearer_token = obtain_bearer_token(API_HOST, TOKEN_PATH)
+
+    #response = search(bearer_token, term, location)
+    response = search(bearer_token, term, latitude, longitude)
+
+    businesses = response.get('businesses')
+
+    if not businesses:
+    	print(u'No businesses for {0} in {1}, {2} found.'.format(term, latitude, longitude))
+    	return businesses
+
+    business_id = businesses[0]['id']
+
+    print(u'{0} businesses found, querying business info for the top result "{1}" ...'.format(len(businesses), business_id))
+    response = get_business(bearer_token, business_id)
+
+    print(u'Result for business "{0}" found:'.format(business_id))
+    pprint.pprint(response, indent=2)
+
+    return businesses
+
 
 def index(request):
 	print("entered index")
 	return render(request, 'index.html')
 
-def advanced(request):
-    return render(request, 'advanced.html')
+def details(request):
+    return render(request, 'details.html')
 
 def results(request):
-    info=request.POST['info']
-    print("info")
-    print(info)
+    info = request.POST['info']
+    latitude = request.POST['latitude']
+    longitude = request.POST['longitude']
 
     try:
-        query_api(DEFAULT_TERM, DEFAULT_LOCATION)
+        businesses = query_api(info, latitude, longitude)
     except HTTPError as error:
         sys.exit(
             'Encountered HTTP error {0} on {1}:\n {2}\nAbort program.'.format(
@@ -163,5 +211,5 @@ def results(request):
         )
 
 
-    return render(request, 'index.html')
+    return render(request, 'index.html', {'businesses': businesses})
     # do something with info

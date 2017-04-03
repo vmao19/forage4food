@@ -11,7 +11,8 @@
       .jumbotron {
           background: url('{% static 'forage/forage-background.jpg' %}') center #0e5135;
           padding-bottom: 80px;
-          height: 85vh
+          margin-bottom: 0px;
+          height: 95vh
       }
       .jumbotron .btn-primary {
           background: #0d9263;
@@ -25,11 +26,31 @@
           max-width: 75%;
           margin: 1em auto 2em
       }
+      .navbar {
+        margin-bottom: 0px
+      }
       .navbar+.jumbotron {
           margin-top: -20px
       }
       .input-group {
           padding-top: 20vh
+      }
+      .thumbnail {
+        max-width: 400px;
+        height: auto
+      }
+      .invisble {
+        visibility: false
+      }
+      .footer {
+        background: #000000;
+        padding-top: 1vh;
+        padding-bottom: 1vh
+      }
+      .footer-text {
+        color: #9d9d9d;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-size: 14px;
       }
     </style>
   </head>
@@ -40,15 +61,14 @@
       <ul class="nav navbar-nav">
         {% url 'index' as index_url %}
         <li {% if request.get_full_path == index_url %}class="active"{% endif %} >
-        <!--<li class="active">-->
           <a href="/"><span class="glyphicon glyphicon-leaf"></span> Forage4Food</a>
         </li>
-        <li>
-          <a href="#details"><span class="glyphicon glyphicon-question-sign"></span> Details</a>
+        {% url 'details' as details_url %}
+        <li {% if request.get_full_path == details_url %}class="active"{% endif %} >
+          <a href="details.html"><span class="glyphicon glyphicon-question-sign"></span> Details</a>
         </li>
-        {% url 'advanced' as advanced_url %}
-        <li {% if request.get_full_path == advanced_url %}class="active"{% endif %} >
-          <a href="advanced.html"><span class="glyphicon glyphicon-grain"></span> Try Advanced Forage</a>
+        <li>
+          <a><span class="glyphicon glyphicon-grain"></span> Advanced Forage Coming Soon!</a>
         </li>
         <!--
         <li class="dropdown">
