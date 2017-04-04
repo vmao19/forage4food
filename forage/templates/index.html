@@ -38,7 +38,7 @@
 <div class="container">
 {% if businesses|length > 0 %}
   {% if businesses %}
-      <h2> Top {{ businesses|length }} Nearby Results 4 "{{ info }}" </h2><br>
+      <h2> Top {{ businesses|length }} Nearby results 4 "{{ info }}" </h2><br>
   {% endif %}
 
   <div class="panel panel-default">
@@ -66,7 +66,7 @@
     {% endfor %}
   </div>
 {% elif businesses|length == 0 and info %}
-  <h2> No Nearby Results 4 "{{ info }}". Please Try Again!</h2><br>
+  <h2> No nearby results 4 "{{ info }}". Make sure your browser is allowed to use your location. Please try again!</h2><br>
 {% endif %}
 </div
 
