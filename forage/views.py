@@ -161,5 +161,8 @@ def results(request):
         )
 
     print(businesses)
-    
+    print("info" + info)
+    print("lat" + latitude)
+    print("long" + longitude)
+
     return render(request, 'index.html', {'info': info, 'curLat': latitude, 'curLong': longitude, 'businesses': businesses})
