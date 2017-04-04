@@ -3,7 +3,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-  <title>Forage4Food</title>
+    <title>forage4food</title>
+    <link rel="icon" href="{% static 'forage/tree.png' %}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -53,14 +54,14 @@
       <ul class="nav navbar-nav">
         {% url 'index' as index_url %}
         <li {% if request.get_full_path == index_url %}class="active"{% endif %} >
-          <a href="/"><span class="glyphicon glyphicon-leaf"></span> Forage4Food</a>
+          <a href="/"><span class="glyphicon glyphicon-leaf"></span> forage4food</a>
         </li>
         {% url 'details' as details_url %}
         <li {% if request.get_full_path == details_url %}class="active"{% endif %} >
-          <a href="details.html"><span class="glyphicon glyphicon-question-sign"></span> Details</a>
+          <a href="details.html"><span class="glyphicon glyphicon-question-sign"></span> details</a>
         </li>
         <li>
-          <a><span class="glyphicon glyphicon-grain"></span> Advanced Forage Coming Soon!</a>
+          <a><span class="glyphicon glyphicon-grain"></span> advanced forage coming soon!</a>
         </li>
       </ul>
 
