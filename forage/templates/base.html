@@ -14,13 +14,6 @@
           margin-bottom: 0px;
           height: 95vh
       }
-      .jumbotron .btn-primary {
-          background: #0d9263;
-          border-color: #0d9263
-      }
-      .jumbotron .btn-primary:hover {
-          background: #4aba91
-      }
       .jumbotron p {
           color: #d9ccee;
           max-width: 75%;
@@ -39,9 +32,6 @@
         max-width: 400px;
         height: auto
       }
-      .invisble {
-        visibility: false
-      }
       .footer {
         background: #000000;
         padding-top: 1vh;
@@ -49,7 +39,7 @@
       }
       .footer-text {
         color: #9d9d9d;
-        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         font-size: 14px;
       }
     </style>
@@ -70,24 +60,8 @@
         <li>
           <a><span class="glyphicon glyphicon-grain"></span> Advanced Forage Coming Soon!</a>
         </li>
-        <!--
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-info-sign"></span> Getting Started Guides <span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="https://devcenter.heroku.com/articles/getting-started-with-ruby">Getting Started with Ruby on Heroku</a></li>
-              <li><a href="https://devcenter.heroku.com/articles/getting-started-with-nodejs">Getting Started with Node on Heroku</a></li>
-              <li><a href="https://devcenter.heroku.com/articles/getting-started-with-php">Getting Started with PHP on Heroku</a></li>
-              <li><a href="https://devcenter.heroku.com/articles/getting-started-with-python">Getting Started with Python on Heroku</a></li>
-              <li><a href="https://devcenter.heroku.com/articles/getting-started-with-java">Getting Started with Java on Heroku</a></li>
-              <li><a href="https://devcenter.heroku.com/articles/getting-started-with-clojure">Getting Started with Clojure on Heroku</a></li>
-              <li><a href="https://devcenter.heroku.com/articles/getting-started-with-scala">Getting Started with Scala on Heroku</a></li>
-              <li class="divider"></li>
-              <li><a href="https://devcenter.heroku.com/articles/getting-started-with-heroku-and-connect-without-local-dev">Getting Started on Heroku with Heroku Connect</a></li>
-              <li><a href="https://devcenter.heroku.com/articles/getting-started-with-jruby">Getting Started with Ruby on Heroku (Microsoft Windows)</a></li>
-            </ul>
-        </li>
-        -->
       </ul>
+
       <ul class="nav navbar-nav navbar-right">
         <li class="navbar-right dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-info-sign"></span> Created by Victor Mao <span class="caret"></span></a>
@@ -97,24 +71,20 @@
               <li><a href="https://www.facebook.com/profile.php?id=100004286235811" target="_blank">Facebook</a></li>
               <li><a href="https://twitter.com/vmao19" target="_blank">Twitter</a></li>
               <li><a href="https://www.instagram.com/victor_tigerrr12/" target="_blank">Instagram</a></li>
-              <!--
-              <li><a href="https://devcenter.heroku.com/articles/getting-started-with-java">Getting Started with Java on Heroku</a></li>
-              <li><a href="https://devcenter.heroku.com/articles/getting-started-with-clojure">Getting Started with Clojure on Heroku</a></li>
-              <li><a href="https://devcenter.heroku.com/articles/getting-started-with-scala">Getting Started with Scala on Heroku</a></li>
-              <li class="divider"></li>
-              <li><a href="https://devcenter.heroku.com/articles/getting-started-with-heroku-and-connect-without-local-dev">Getting Started on Heroku with Heroku Connect</a></li>
-              <li><a href="https://devcenter.heroku.com/articles/getting-started-with-jruby">Getting Started with Ruby on Heroku (Microsoft Windows)</a></li>
-              -->
             </ul>
         </li>
       </ul>
     </div>
   </nav>
 
-
-
-
   {% block content %}{% endblock %}
+
+  <footer>
+    <div class="container footer" align="center" style="width:100%">
+        <h5 class="footer-text">(C) 2017 - <a href="https://www.linkedin.com/in/victor-mao" target="_blank">Victor Mao</a></h5>
+        <h5 class="footer-text">Powevered by <a href="https://www.yelp.com/developers/documentation/v3" target="_blank">Yelp Fusion API</a>, <a href="https://www.heroku.com" target="_blank">Heroku</a>, <a href="https://www.djangoproject.com/" target="_blank">Django</a>, and <a href="https://www.python.org/" target="_blank">Python</h5>
+    </div>
+  </footer>
 
   </body>
 </html>

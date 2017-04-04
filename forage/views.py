@@ -27,11 +27,7 @@ BUSINESS_PATH = '/v3/businesses/'  # Business ID will come after slash.
 TOKEN_PATH = '/oauth2/token'
 GRANT_TYPE = 'client_credentials'
 
-
-# Defaults for our simple example.
-DEFAULT_TERM = 'dinner'
-DEFAULT_LOCATION = 'San Francisco, CA'
-SEARCH_LIMIT = 4
+SEARCH_LIMIT = 4;
 
 def obtain_bearer_token(host, path):
     """Given a bearer token, send a GET request to the API.
@@ -84,23 +80,6 @@ def request(host, path, bearer_token, url_params=None):
 
     return response.json()
 
-
-def search(bearer_token, term, location):
-    """Query the Search API by a search term and location.
-    Args:
-        term (str): The search term passed to the API.
-        location (str): The search location passed to the API.
-    Returns:
-        dict: The JSON response from the request.
-    """
-
-    url_params = {
-        'term': term.replace(' ', '+'),
-        'location': location.replace(' ', '+'),
-        'limit': SEARCH_LIMIT
-    }
-    return request(API_HOST, SEARCH_PATH, bearer_token, url_params=url_params)
-
 def search(bearer_token, term, latitude, longitude):
     """Query the Search API by a search term and location.
     Args:
@@ -131,34 +110,6 @@ def get_business(bearer_token, business_id):
 
     return request(API_HOST, business_path, bearer_token)
 
-
-def query_api(term, location):
-    """Queries the API by the input values from the user.
-    Args:
-        term (str): The search term to query.
-        location (str): The location of the business to query.
-    """
-    bearer_token = obtain_bearer_token(API_HOST, TOKEN_PATH)
-
-    #response = search(bearer_token, term, location)
-    response = search(bearer_token, term, location)
-
-    businesses = response.get('businesses')
-
-    if not businesses:
-    	print(u'No businesses for {0} in {1} found.'.format(term, location))
-    	return
-
-    business_id = businesses[0]['id']
-
-    print(u'{0} businesses found, querying business info for the top result "{1}" ...'.format(len(businesses), business_id))
-    response = get_business(bearer_token, business_id)
-
-    print(u'Result for business "{0}" found:'.format(business_id))
-    pprint.pprint(response, indent=2)
-
-    return businesses
-
 def query_api(term, latitude, longitude):
     """Queries the API by the input values from the user.
     Args:
@@ -188,7 +139,6 @@ def query_api(term, latitude, longitude):
 
 
 def index(request):
-	print("entered index")
 	return render(request, 'index.html')
 
 def details(request):
@@ -210,6 +160,6 @@ def results(request):
             )
         )
 
-
-    return render(request, 'index.html', {'businesses': businesses})
-    # do something with info
+    print(businesses)
+    
+    return render(request, 'index.html', {'info': info, 'curLat': latitude, 'curLong': longitude, 'businesses': businesses})

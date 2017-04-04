@@ -33,7 +33,7 @@
     <div class="col-lg-8 col-lg-offset-2 input-group input-group-lg " align="center">
       <form id="search" name="search" action="results" method="post">
         {% csrf_token %}
-        <input type="text" class="form-control" placeholder="Forage4Food: Enter a restaurant or food category..." name="info" autofocus="autofocus" required>
+        <input type="text" class="form-control" placeholder="Forage4Food Nearby: Enter a restaurant or food category..." name="info" autofocus="autofocus" required>
         <br>
         <input type="hidden" name="latitude" id="latitude" value="">
         <input type="hidden" name="longitude" id="longitude" value="">
@@ -46,88 +46,42 @@
 </div>
 
 {% if businesses|length > 0 %}
-<div class="container" id="show">
+<div class="container">
   {% if businesses %}
-      <h2> Top {{ businesses|length }} Nearby Results</h2><br>
+      <h2> Top {{ businesses|length }} Nearby Results 4 "{{ info }}" </h2><br>
       <script>
-          window.location.href = 'results#show';                     //Go there.
+          jump("show");
       </script>
   {% endif %}
-  <!--
-  <style>
-    #map {
-      width: 400px;
-      height: 400px;
-    }
-   </style>
 
-  <div id="map"></div>
-  <script>
-    function getMyLocation() {
-      if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(returnCoordinates);
-      }
-      else { 
-          document.search.latitude.value = "Geolocation is not supported by this browser.";
-    }
-    function returnCoordinates(position) {
-      return position.coords.latitude, position.coords.longitude;
-    }
-
-    function initMap() {
-      var myLatLng = getMyLocation();
-
-      var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 12,
-        center: {{ businesses.0.coordinates.latitude }}, lng: {{ businesses.0.coordinates.longitude }}
-      });
-
-      {% for business in businesses %}
-      var marker = new google.maps.Marker({
-        position: {lat: {{ business.coordinates.latitude }}, lng: {{ business.coordinates.longitude }} },
-        map: map,
-        title: "{{ business.name }}"
-      });
-      {% endfor %}
-    }
-  </script>
-  <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByy6nJ-gsCOt2XGyxQze1UcW3VxjWsL7U&callback=initMap";
-  </script>
-  -->
-
-  <div class="panel panel-default">
+  <div class="panel panel-default" id="show">
     {% for business in businesses %}
       <div class="panel-heading">
-          <h2 class="panel-title"> <a href="{{business.url}}">{{ business.name }}</a></h2>
+          <h2 class="panel-title"> <a href="{{business.url}}" target="_blank">{{ business.name }}</a></h2>
       </div>
       <div class="panel-body">
         <div class="col-lg-4" align="left">
           <img class="thumbnail" src="{{ business.image_url}}">
         </div>
         <div class="col-lg-4 col-lg-offset-2">
-          <p>Address: {{ business.location.address1 }}<br>{{ business.location.city}}, {{business.location.state}} {{business.location.zip_code}}</p>
+          <p>Address: 
+            <a href="https://www.google.com/maps/dir/{{curLat}},{{curLong}}/{{business.name}},{{business.location.address1}},{{business.location.city}},{{business.location.state}} {{business.location.zip_code}}/" target="_blank">{{ business.location.address1 }}<br>{{ business.location.city}}, {{business.location.state}} {{business.location.zip_code}}</a>
+          </p>
           <p>Phone Number: {{ business.display_phone }}</p>
           <p>Price: {{ business.price }}/$$$$</p>
           <p>Closed Right Now? {{ business.is_closed }}</p>
           <p>Rating: {{ business.rating }}/5.0</p>
           <p>Categories: {% for category in business.categories %}{{category.title}}<br>{% endfor %}</p>
-          <p><a href="{{business.url}}">{{business.review_count}} Reviews</a></p>
+          <p><a href="{{business.url}}" target="_blank">{{business.review_count}} Reviews</a></p>
         </div>
         <p align="right"><a href="#">Back To Top</a></p>
       </div>
     {% endfor %}
   </div>
 {% elif businesses %}
-  <div class="container" id="show">
+  <div class="container">
     <h2> No Nearby Results</h2><br>
   </div>
 {% endif %}
 
-<footer class="footer">
-  <div class="container" align="center">
-      <h5 class="footer-text">(C) 2017 - Victor Mao</h5>
-      <h5 class="footer-text">Powevered by <a href="https://www.yelp.com/developers/documentation/v3" target="_blank">Yelp Fusion API</a>, <a href="https://www.heroku.com" target="_blank">Heroku</a>, <a href="https://www.djangoproject.com/" target="_blank">Django</a>, and <a href="https://www.python.org/" target="_blank">Python</h5>
-  </div>
-</footer>
 {% endblock %}
