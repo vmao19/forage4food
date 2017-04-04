@@ -29,16 +29,25 @@ Supporting GitHub repository: https://github.com/vmao19/forage4food
 ## What other resources does forage4food utilize?
 
 ​​Get started with Yelp’s Fusion API: https://www.yelp.com/developers/documentation/v3/get_started
+
 Getting Started on Heroku with Python: https://devcenter.heroku.com/articles/getting-started-with-python#introduction
+
 Writing your first Django app: https://docs.djangoproject.com/en/1.10/intro/tutorial01/
+
 GitHub – Heroku/python-getting-started: https://github.com/heroku/python-getting-started
+
 GitHub – Yelp/yelp-fusion/fusion/python: https://github.com/Yelp/yelp-fusion/tree/master/fusion/python
+
 Forage Background: https://s-media-cache-ak0.pinimg.com/originals/8d/83/53/8d8353aa1e34e4fcbebaae5d945d2ef3.jpg
+
 HTML5 Geolocation: https://www.w3schools.com/htmL/html5_geolocation.asp
+
 Tree Favicon: https://www.vecteezy.com/vector-art/88206-squared-minimal-tree-vectors
 
 ## Contact Victor Mao for questions and comments:
 
-​​Email: victormao98@gmail.com
+Email: victormao98@gmail.com
+
 LinkedIn: https://www.linkedin.com/in/victor-mao
+
 GitHub: https://github.com/vmao19
